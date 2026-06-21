@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Hoor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .password-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .password-container h1 {
+            color: #d4616d;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .password-container p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #e0a899;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #d4616d;
+            box-shadow: 0 0 10px rgba(212, 97, 109, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #d4616d 0%, #c04a59 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 97, 109, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .main-content {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .main-content.show {
+            display: block;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 100px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-content {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .page h1 {
+            color: #d4616d;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .page p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .image-item {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e0a899 0%, #d4a5a0 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            font-weight: 500;
+        }
+
+        .page-nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #d4616d;
+            background: white;
+            color: #d4616d;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-btn.active {
+            background: #d4616d;
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .tulips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+        }
+
+        .tulips.active {
+            display: block;
+        }
+
+        .tulip {
+            position: absolute;
+            width: 20px;
+            height: 40px;
+            animation: fall 4s ease-in forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotateZ(360deg);
+                opacity: 0;
+            }
+        }
+
+        .tulip::before {
+            content: '🌷';
+            font-size: 24px;
+            position: absolute;
+        }
+
+        .birthday-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: #d4616d;
+            text-align: center;
+            animation: popIn 0.8s ease-out;
+            z-index: 1001;
+            pointer-events: none;
+            display: none;
+        }
+
+        .birthday-text.show {
+            display: block;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        audio {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .password-container {
+                padding: 30px 20px;
+            }
+
+            .page-content {
+                padding: 20px;
+            }
+
+            .page h1 {
+                font-size: 26px;
+            }
+
+            .images-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-item {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="password-container" id="passwordContainer">
+        <h1>🎂 Happy Birthday</h1>
+        <p>Enter password to continue</p>
+        <input type="password" id="passwordInput" class="password-input" placeholder="Enter password">
+        <button class="btn" onclick="checkPassword()">Unlock</button>
+        <div class="error" id="errorMsg">Incorrect password. Try again.</div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <div class="tulips" id="tulips"></div>
+        <div class="birthday-text" id="birthdayText">Happy Birthday Hoor! 🎉</div>
+
+        <!-- Page 1: Birthday Wish -->
+        <div class="page active" id="page1">
+            <div class="page-content">
+                <h1>Happy Birthday Hoor! 🎂</h1>
+                <p>
+                    Today is a day to celebrate you and all the wonderful moments we've shared. Life has a way of bringing people into our lives at just the right time, and you were one of those beautiful coincidences that changed everything. Your kindness, your laugh, and the way you see the world have left an indelible mark on my heart. As you celebrate another year of existence, I want you to know that no matter what, you deserve all the happiness in the world. Every dream you chase, every goal you set, and every step you take forward matters. May this year bring you closer to your dreams, surround you with genuine love, and fill your days with moments of pure joy. You're stronger than you know, braver than you believe, and more beautiful than you could ever imagine. Happy Birthday to someone who made my life infinitely better. May your day be as special as you are. 🎉💕
+                </p>
+
+                <div class="images-grid">
+                    <div class="image-item">📸 Photo 1</div>
+                    <div class="image-item">📸 Photo 2</div>
+                    <div class="image-item">📸 Photo 3</div>
+                    <div class="image-item">📸 Photo 4</div>
+                    <div class="image-item">📸 Photo 5</div>
+                    <div class="image-item">📸 Photo 6</div>
+                    <div class="image-item">📸 Photo 7</div>
+                </div>
+
+                <div class="page-nav">
+                    <button class="nav-btn active" onclick="goToPage(1)">Birthday Wish</button>
+                    <button class="nav-btn" onclick="goToPage(2)">Regrets & Taunts</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Regrets & Taunts -->
+        <div class="page" id="page2">
+            <div class="page-content">
+                <h1>Regrets & Taunts 💭</h1>
+                <p>
+                    I think about the moments I didn't cherish enough when they were happening. The laughter we shared in the car, the late-night talks that felt like they could solve the world, the way you'd light up when talking about things you loved. I wish I had paid more attention, been more present, appreciated the simple magic of just being around you. There are things I said that I wish I could take back, and things I didn't say that I wish I had. I was afraid, unsure, caught between wanting something desperately and being terrified of losing it. That fear made me do stupid things, say hurtful things, and miss out on chances to show you how much you meant to me. If I could go back, I'd be braver. I'd be kinder. I'd tell you every single day that you were worth it. But I can't go back, so today, on your birthday, I'm telling you now: I'm sorry for the ways I fell short. I'm sorry for not fighting harder. I'm sorry for letting doubt win. And I'm grateful—so incredibly grateful—that you existed in my life, even if it was just for a chapter. You deserve someone who won't hesitate, who won't be afraid, who will love you the way you deserve to be loved. I hope you find that, and I hope life gives you everything you ever wanted and more. You were my greatest "what if," and that's something I'll carry with me forever. 💙
+                </p>
+
+                <div class="images-grid">
+                    <div class="image-item">📸 Photo 1</div>
+                    <div class="image-item">📸 Photo 2</div>
+                    <div class="image-item">📸 Photo 3</div>
+                    <div class="image-item">📸 Photo 4</div>
+                    <div class="image-item">📸 Photo 5</div>
+                    <div class="image-item">📸 Photo 6</div>
+                    <div class="image-item">📸 Photo 7</div>
+                </div>
+
+                <div class="page-nav">
+                    <button class="nav-btn" onclick="goToPage(1)">Birthday Wish</button>
+                    <button class="nav-btn active" onclick="goToPage(2)">Regrets & Taunts</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "muneeb";
+        const passwordInput = document.getElementById("passwordInput");
+        const passwordContainer = document.getElementById("passwordContainer");
+        const mainContent = document.getElementById("mainContent");
+        const errorMsg = document.getElementById("errorMsg");
+        const bgMusic = document.getElementById("bgMusic");
+        let musicStarted = false;
+
+        function checkPassword() {
+            const entered = passwordInput.value;
+            if (entered === correctPassword) {
+                errorMsg.classList.remove("show");
+                passwordContainer.style.display = "none";
+                mainContent.classList.add("show");
+                
+                if (!musicStarted) {
+                    bgMusic.volume = 0.3;
+                    bgMusic.play().catch(e => console.log("Music autoplay prevented"));
+                    musicStarted = true;
+                }
+
+                triggerAnimation();
+            } else {
+                errorMsg.classList.add("show");
+                passwordInput.value = "";
+                passwordInput.focus();
+            }
+        }
+
+        function triggerAnimation() {
+            const tulipsContainer = document.getElementById("tulips");
+            const birthdayText = document.getElementById("birthdayText");
+            
+            tulipsContainer.classList.add("active");
+            birthdayText.classList.add("show");
+
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const tulip = document.createElement("div");
+                    tulip.className = "tulip";
+                    tulip.style.left = Math.random() * 100 + "%";
+                    tulip.style.animationDelay = Math.random() * 0.5 + "s";
+                    tulipsContainer.appendChild(tulip);
+                }, i * 100);
+            }
+
+            setTimeout(() => {
+                tulipsContainer.classList.remove("active");
+                birthdayText.classList.remove("show");
+            }, 5000);
+        }
+
+        function goToPage(pageNum) {
+            document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+            document.getElementById("page" + pageNum).classList.add("active");
+            document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+            event.target.classList.add("active");
+        }
+
+        passwordInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+
+        // Resume music on user interaction
+        document.addEventListener("click", () => {
+            if (musicStarted && bgMusic.paused) {
+                bgMusic.play().catch(e => console.log("Music play prevented"));
+            }
+        });
+    </script>
+</body>
+</html>
