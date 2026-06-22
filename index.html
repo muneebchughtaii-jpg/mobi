@@ -14,7 +14,6 @@
 
         html, body {
             width: 100%;
-            height: 100%;
         }
 
         body {
@@ -23,9 +22,9 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
-            overflow-x: hidden;
+            padding-top: 20px;
         }
 
         /* PASSWORD SCREEN */
@@ -180,20 +179,18 @@
             display: block;
         }
 
-        /* MAIN JOURNAL */
+        /* MAIN JOURNAL CONTAINER */
         .journal-container {
             display: none !important;
             width: 100%;
-            max-width: 500px;
+            max-width: 540px;
             margin: 0 auto;
+            flex-direction: column;
+            align-items: center;
         }
 
         .journal-container.show {
             display: flex !important;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
         }
 
         .journal-page {
@@ -203,13 +200,14 @@
             background: linear-gradient(135deg, #f5e6d3 0%, #ede0cc 100%);
             border-radius: 4px;
             padding: 40px;
-            margin: 40px auto;
+            margin: 40px 20px;
             position: relative;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 
                         inset 0 0 20px rgba(0, 0, 0, 0.05);
             border: 6px solid #8b6f47;
             overflow-y: auto;
             animation: pageOpen 0.8s ease-out;
+            z-index: 10;
         }
 
         @keyframes pageOpen {
@@ -237,7 +235,6 @@
             pointer-events: none;
         }
 
-        /* BURNT EDGES FOR ALL PAGES */
         .journal-page::after {
             content: '';
             position: absolute;
@@ -287,7 +284,7 @@
 
         .journal-page.handwritten p {
             font-family: 'Caveat', cursive;
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 600;
         }
 
@@ -336,7 +333,7 @@
             aspect-ratio: 9/16;
             background: linear-gradient(135deg, #f5e6d3 0%, #ede0cc 100%);
             border-radius: 4px;
-            margin: 40px auto;
+            margin: 40px 20px;
             position: relative;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             border: 6px solid #8b6f47;
@@ -469,7 +466,7 @@
             display: none;
         }
 
-        /* SCROLLBAR STYLING */
+        /* SCROLLBAR */
         .journal-page::-webkit-scrollbar {
             width: 6px;
         }
@@ -483,15 +480,10 @@
             border-radius: 3px;
         }
 
-        .journal-page::-webkit-scrollbar-thumb:hover {
-            background: #5c4a35;
-        }
-
         @media (max-width: 768px) {
             .journal-page {
                 padding: 30px 20px;
                 aspect-ratio: auto;
-                min-height: auto;
             }
 
             .journal-page h2 {
@@ -509,17 +501,13 @@
             .birthday-text {
                 font-size: 72px;
             }
-
-            .flower {
-                font-size: 45px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- AUDIO PLAYER -->
-    <audio id="audioPlayer" controls>
-        <source src="https://www.youtube.com/watch?v=k232IRh2tEE" type="audio/mpeg">
+    <!-- AUDIO -->
+    <audio id="audioPlayer">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <!-- PASSWORD SCREEN -->
@@ -542,44 +530,36 @@
 
     <!-- MAIN JOURNAL -->
     <div class="journal-container" id="journalContainer">
-        <!-- PAGE 1: HANDWRITTEN NOTE -->
+        <!-- PAGE 1 -->
         <div class="journal-page handwritten">
             <h2>Dear Hoor,</h2>
-            <p>Happiest birthdayyyyyyyyyyy Babe.. Wishing  you have a good one . Firstly I cant even explain how embarrassed I am of myself that I wasn't able to gift you anything I promise that I tried but current situation is just keep on getting worst … I don't think this birthday wish gnna make you feel any better or not … lol I don't even know if it's a birthday wish or not … i think its me just letting out …</p>
-            
-            <p>Hoorrr I love you and I always will.. though it wasn't enough  but I rly did … I want you to live your life every single day to the fullest hoor .. it doesn't even makes sense but don't make the mistakes that I made … I remember I used to say to you ke family comes first nd all  family ijazat deti toh aapse shaadi krta and all … and I m the one that abandoned thm .. khair this day is about you .</p>
-            
-            <p>Babe you are the prettiest girl ever and I m not just saying this out of love I really mean it .. GOD made you specially … ik you feel insecure   u dun feel confident bout ur body    but babe take my word   you have the perfect body … your face lips eyes nose cheekssssss dil krta khaa jau aapko …. your piercings its just sooo perfect meri jan .. so feel confident bout ur body be Bold …..be confident …. Don't take no for an answer …. Not just physically attractive babe ..you are beautiful from the inside also your family miss syeda your mother  jiji they care for you they support you … you got amazing frnds   .. your way of talkinggg…. I just mesmerized how you used to talk on calll  haayeeeeeeee aaapkii light hyderabadi vibe your tonee it was just sooo qurban jau aap pr … khn se khn chla gya …</p>
+            <p>Happiest birthdayyyyyyyyyyy Babe.. Wishing you have a good one. Firstly I cant even explain how embarrassed I am of myself that I wasn't able to gift you anything. I promise that I tried but current situation is just keep on getting worst. I don't think this birthday wish gonna make you feel any better or not. Lol I don't even know if it's a birthday wish or not. I think its me just letting out.</p>
+            <p>Hoorrr I love you and I always will.. though it wasn't enough but I rly did. I want you to live your life every single day to the fullest hoor. It doesn't even makes sense but don't make the mistakes that I made. I remember I used to say to you ke family comes first nd all, family ijazat deti toh aapse shaadi krta and all. And I'm the one that abandoned them.. khair this day is about you.</p>
+            <p>Babe you are the prettiest girl ever and I'm not just saying this out of love. I really mean it. GOD made you specially. Ik you feel insecure, u don't feel confident bout ur body but babe take my word, you have the perfect body. Your face, lips, eyes, nose, cheekssssss dil krta khaa jau aapko. Your piercings its just sooo perfect meri jan. So feel confident bout ur body. Be Bold. Be confident. Don't take no for an answer. Not just physically attractive babe, you are beautiful from the inside also. Your family miss syeda, your mother, jiji, they care for you, they support you. You got amazing frnds. Your way of talkinggg. I just mesmerized how you used to talk on call. Haayeeeeeeee aaapkii light hyderabadi vibe your tonee it was just sooo qurban jau aap pr. Khn se khn chla gya.</p>
         </div>
 
-        <!-- PAGE 2: CONTINUED -->
+        <!-- PAGE 2 -->
         <div class="journal-page handwritten">
-            <p>I was saying ke you got everything you need … you need ALLah by ur side … Frnds, Family  sooo be confident  ye jo chup ke rehte avoid krte sbko low confident and all whatever u feel bout urself stop feeling that and OWN YOURSELF …. You are talented … u dun know I open ur page kbhi kbhi and watch ur orders… orders close kyu kiye shyd orders  zada hote ya ghr py busy rehte .. ya EID ki wja se orders close kr diye the …. I think bout whats going on in ur life …. I was seeing ur main insta from few days private th ..   thn suddenly it became publiccccc I was so happpyyyy …. I soooooo badly wanted to eat that puffffffffff it was so cuteee aapki fingers the story me and I was staring at your fingers like a hungry smooolll baby ….. jese puff nhi aapke fingers khane ho …</p>
-
-            <p>I AM PROUD OF YOU HOOR ….. You ve been through a lot and you survived , My warrior babe …Just don't give up like I did ….. </p>
-
-            <p>Sorry me zada bol rh but its my last birthday wish to you so I just have to say it all …. Babe I have caused you a lot of trouble all the time …. I apologize for that … I am sorry from the bottom of my heart …. Ho ske toh maaf krdijiye ga …. I never meant you harm … I just lost control of my consciousness and that is no excuse … I guess makafat e amal chal rh.. jo kuch b glt kiya jiske sath b   us sb ka hisaab duniya me hi pura ho rh …… Khairr ….</p>
+            <p>I was saying ke you got everything you need. You need Allah by ur side. Frnds, Family. Sooo be confident. Ye jo chup ke rehte avoid krte sbko low confident and all. Whatever u feel bout urself stop feeling that and OWN YOURSELF. You are talented. U don't know I open ur page kbhi kbhi and watch ur orders. Orders close kyu kiye? Shyd orders zada hote ya ghr py busy rehte, ya EID ki wja se orders close kr diye the. I think bout whats going on in ur life. I was seeing ur main insta from few days private th. Thn suddenly it became publiccccc. I was so happpyyyy. I soooooo badly wanted to eat that puffffffffff. It was so cuteee aapki fingers the story me and I was staring at your fingers like a hungry smooolll baby. Jese puff nhi aapke fingers khane ho.</p>
+            <p>I AM PROUD OF YOU HOOR. You've been through a lot and you survived, My warrior babe. Just don't give up like I did.</p>
+            <p>Sorry me zada bol rh but its my last birthday wish to you so I just have to say it all. Babe I have caused you a lot of trouble all the time. I apologize for that. I am sorry from the bottom of my heart. Ho ske toh maaf krdijiye ga. I never meant you harm. I just lost control of my consciousness and that is no excuse. I guess makafat e amal chal rh.. jo kuch b glt kiya jiske sath b us sb ka hisaab duniya me hi pura ho rh. Khairr.</p>
         </div>
 
-        <!-- PAGE 3: CONTINUED -->
+        <!-- PAGE 3 -->
         <div class="journal-page handwritten">
-            <p>Is sbke bawajood  I m proud of the fact that I didn't reached out to you when I came to pak  I mean I had I nothing to lose no family no frnds …. I could ve forced you to stay but I didn't cuz I love you jaannnn …. It doesn't make any sense to you rn but I really controlled myself …. I ve been bad to you .. I dun deserve you … but I want you … still …</p>
-
-            <p>I didn't forced or begged you to stay .. cuz I knew I m harmfull … I hurt you even when I don't want to hurt you … I would have brought you down with myself … I would ve drained you …. Made you feel bad …. I m happy that you weren't there with me … I m happy that you left in time …. Not in time I mean you still got damaged in the way .. which I apologize for …. but if you look at me know you should be thankful to god that you are not with me sach me …</p>
-
-            <p>One more misunderstanding that you have … that you feel like u owe me something or I have donw favors to you… nooo hoorr noooo a big no ….. YOU DON'T OWE ME ANYTHING , Everything that I did was out of LOVE  … nothing else …. I wish I had more fight in me …. i m nothing but a drug addict who's on limited time ....</p>
+            <p>Is sbke bawajood I'm proud of the fact that I didn't reached out to you when I came to pak. I mean I had nothing to lose, no family, no frnds. I could've forced you to stay but I didn't cuz I love you jaannnn. It doesn't make any sense to you rn but I really controlled myself. I've been bad to you. I don't deserve you. But I want you. Still.</p>
+            <p>I didn't forced or begged you to stay cuz I knew I'm harmful. I hurt you even when I don't want to hurt you. I would have brought you down with myself. I would've drained you. Made you feel bad. I'm happy that you weren't there with me. I'm happy that you left in time. Not in time I mean you still got damaged in the way, which I apologize for. But if you look at me now you should be thankful to god that you are not with me, sach me.</p>
+            <p>One more misunderstanding that you have, that you feel like u owe me something or I have done favors to you. Nooo hoorr noooo a big no. YOU DON'T OWE ME ANYTHING. Everything that I did was out of LOVE, nothing else. I wish I had more fight in me. I'm nothing but a drug addict who's on limited time.</p>
         </div>
 
-        <!-- PAGE 4: CONTINUED & REGRETS -->
+        <!-- PAGE 4 -->
         <div class="journal-page handwritten">
-            <p>Ukw I was gnna make a separate page  for just regrets and taunts  ….. now im thinking bout taunts … I dun think I have any taunts to give to you … no taunts … But if we talk bout regret I do have one regret … Regret of not meeting you hoor … I wish ik bar mil leta aapse … I wish I could touch you for once … a warm long hug , a gentle kiss … a long walk while holding hands …. i wish we could be together … That the only regret hoor   I wish ik bar mil lete hum …</p>
-
-            <p>the love that I have for you hoor ,I cant give it to anyone else … I m working on a list hoor … I have lost everything I mean it everything .. but I wnna do something for the one who stood by me at this time …. So If u rcv something from zeenath just accpt it … idk when but I will try to … dun reject nd embarrass in front of her …</p>
-
-            <p>next some of my fav pics of us or our time … and I think I will probably write something after the last pic</p>
+            <p>Ukw I was gonna make a separate page for just regrets and taunts. Now I'm thinking bout taunts. I don't think I have any taunts to give to you. No taunts. But if we talk bout regret I do have one regret. Regret of not meeting you hoor. I wish ik bar mil leta aapse. I wish I could touch you for once. A warm long hug, a gentle kiss. A long walk while holding hands. I wish we could be together. That's the only regret hoor. I wish ik bar mil lete hum.</p>
+            <p>The love that I have for you hoor, I can't give it to anyone else. I'm working on a list hoor. I have lost everything, I mean it, everything. But I wanna do something for the one who stood by me at this time. So if u rcv something from zeenath just accept it. Idk when but I will try to. Don't reject nd embarrass in front of her.</p>
+            <p>Next some of my fav pics of us or our time. And I think I will probably write something after the last pic.</p>
         </div>
 
-        <!-- EMPTY PAGES WITH WATERCOLOR FLOWERS (7 pages) -->
+        <!-- EMPTY PAGES (7) -->
         <div class="empty-page">
             <div class="flower flower-top-left">🌷</div>
             <div class="flower flower-top-right">🌼</div>
@@ -637,7 +617,7 @@
             <div class="photo-space">[Photo Space]</div>
         </div>
 
-        <!-- FINAL PAGE: LAST NOTE -->
+        <!-- FINAL PAGE -->
         <div class="journal-page handwritten">
             <h2>Aakhir mein...</h2>
             <p>Main tumse kuch nahi chahta.</p>
@@ -650,7 +630,7 @@
             <p style="margin-top: 30px; text-align: center; font-weight: 700;">— Muneeb</p>
         </div>
 
-        <!-- CLOSING PAGE -->
+        <!-- CLOSING -->
         <div class="journal-page" style="display: flex; align-items: center; justify-content: center;">
             <h2 style="font-size: 48px;">~ End ~</h2>
         </div>
@@ -676,8 +656,7 @@
                 journalContainer.classList.add("show");
                 
                 if (!musicStarted) {
-                    // Play audio
-                    audioPlayer.play().catch(e => console.log("Audio play prevented"));
+                    audioPlayer.play().catch(e => console.log("Audio prevented"));
                     musicStarted = true;
                 }
 
@@ -721,10 +700,9 @@
             }
         });
 
-        // Resume audio on user interaction
         document.addEventListener("click", () => {
             if (musicStarted && audioPlayer.paused) {
-                audioPlayer.play().catch(e => console.log("Audio play prevented"));
+                audioPlayer.play().catch(e => console.log("Audio prevented"));
             }
         });
     </script>
