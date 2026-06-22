@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Hoor</title>
+    <title>What Remained - A Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&family=Caveat:wght@400;700&family=Crimson+Text:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,360 +13,538 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #3d2817 0%, #2a1810 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
-        .password-container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+        /* PASSWORD SCREEN */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3d2817 0%, #2a1810 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .password-screen.hidden {
+            display: none;
+        }
+
+        .journal-cover {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 9/16;
+            background: linear-gradient(135deg, #d4a574 0%, #c9935f 100%);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 1s ease-out;
+            border: 8px solid #8b6f47;
         }
 
-        .password-container h1 {
-            color: #d4616d;
-            margin-bottom: 10px;
-            font-size: 28px;
+        .journal-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 111, 71, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.15) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        .password-container p {
-            color: #666;
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .journal-cover h1 {
+            font-family: 'Tangerine', cursive;
+            font-size: 72px;
+            color: #3d2817;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .journal-cover p {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            color: #5c4a35;
             margin-bottom: 30px;
-            font-size: 14px;
+            position: relative;
+            z-index: 2;
         }
 
         .password-input {
             width: 100%;
             padding: 15px;
-            font-size: 16px;
-            border: 2px solid #e0a899;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            border: 2px solid #8b6f47;
+            border-radius: 4px;
+            background: #f5e6d3;
+            color: #3d2817;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
             transition: all 0.3s;
         }
 
         .password-input:focus {
             outline: none;
-            border-color: #d4616d;
-            box-shadow: 0 0 10px rgba(212, 97, 109, 0.2);
+            border-color: #5c4a35;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #d4616d 0%, #c04a59 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 97, 109, 0.3);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .error {
-            color: #e74c3c;
+        .password-hint {
+            font-family: 'Caveat', cursive;
             font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .error.show {
-            display: block;
-        }
-
-        .main-content {
-            display: none;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-
-        .main-content.show {
-            display: block;
-        }
-
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 100px;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .page-content {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .page h1 {
-            color: #d4616d;
+            color: #8b6f47;
             margin-bottom: 20px;
-            text-align: center;
-            font-size: 32px;
+            position: relative;
+            z-index: 2;
+            min-height: 20px;
+            font-style: italic;
         }
 
-        .page p {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-size: 15px;
-        }
-
-        .images-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .image-item {
+        .unlock-btn {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #e0a899 0%, #d4a5a0 100%);
-            border-radius: 15px;
+            padding: 12px;
+            background: #3d2817;
+            color: #d4a574;
+            border: 2px solid #8b6f47;
+            border-radius: 4px;
+            font-family: 'Caveat', cursive;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .unlock-btn:hover {
+            background: #5c4a35;
+            transform: translateY(-2px);
+        }
+
+        .error-msg {
+            color: #a0462f;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+            min-height: 20px;
+            display: none;
+            font-family: 'Caveat', cursive;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        /* MAIN JOURNAL */
+        .journal-container {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            min-height: 100vh;
+        }
+
+        .journal-container.show {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .journal-page {
+            width: 100%;
+            aspect-ratio: 9/16;
+            background: linear-gradient(135deg, #f5e6d3 0%, #ede0cc 100%);
+            border-radius: 4px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 
+                        inset 0 0 20px rgba(0, 0, 0, 0.05);
+            border: 6px solid #8b6f47;
+            overflow-y: auto;
+            animation: pageOpen 0.8s ease-out;
+        }
+
+        @keyframes pageOpen {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .journal-page::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.2) 0%, transparent 40%);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .journal-page.handwritten {
+            font-family: 'Caveat', cursive;
+            font-size: 20px;
+            line-height: 1.8;
+            color: #3d2817;
+            letter-spacing: 0.5px;
+        }
+
+        .journal-page h2 {
+            font-family: 'Tangerine', cursive;
+            font-size: 56px;
+            color: #5c4a35;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .journal-page p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #3d2817;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-align: justify;
+        }
+
+        .journal-page.handwritten p {
+            font-family: 'Caveat', cursive;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 300px;
+            background: #e8d4c0;
+            border: 4px solid #8b6f47;
+            border-radius: 2px;
+            margin: 20px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 14px;
-            text-align: center;
-            padding: 10px;
-            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: photoAppear 0.8s ease-out;
         }
 
-        .page-nav {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-            justify-content: center;
+        @keyframes photoAppear {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
-        .nav-btn {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #d4616d;
-            background: white;
-            color: #d4616d;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .nav-btn.active {
-            background: #d4616d;
-            color: white;
+        .empty-page {
+            width: 100%;
+            aspect-ratio: 9/16;
+            background: linear-gradient(135deg, #f5e6d3 0%, #ede0cc 100%);
+            border-radius: 4px;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 6px solid #8b6f47;
+            animation: pageOpen 0.8s ease-out;
         }
 
-        .nav-btn:hover {
-            transform: translateY(-2px);
+        .empty-page::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.2) 0%, transparent 40%);
+            border-radius: 4px;
+            pointer-events: none;
         }
 
-        .tulips {
+        /* TULIP RAIN */
+        .tulip-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 8000;
             display: none;
-            z-index: 1000;
         }
 
-        .tulips.active {
+        .tulip-container.active {
             display: block;
         }
 
         .tulip {
             position: absolute;
-            width: 20px;
-            height: 40px;
-            animation: fall 4s ease-in forwards;
+            font-size: 40px;
+            animation: tulipFall 4s ease-in forwards;
         }
 
-        @keyframes fall {
+        @keyframes tulipFall {
             to {
                 transform: translateY(100vh) rotateZ(360deg);
                 opacity: 0;
             }
         }
 
-        .tulip::before {
-            content: '🌷';
-            font-size: 24px;
-            position: absolute;
+        .birthday-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 8001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .birthday-overlay.show {
+            display: flex;
         }
 
         .birthday-text {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 48px;
-            font-weight: bold;
-            color: #d4616d;
+            font-family: 'Tangerine', cursive;
+            font-size: 120px;
+            color: #d4a574;
             text-align: center;
-            animation: popIn 0.8s ease-out;
-            z-index: 1001;
-            pointer-events: none;
-            display: none;
-        }
-
-        .birthday-text.show {
-            display: block;
+            animation: popIn 1s ease-out;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes popIn {
             0% {
-                transform: translate(-50%, -50%) scale(0);
+                transform: scale(0);
                 opacity: 0;
             }
             50% {
-                transform: translate(-50%, -50%) scale(1.1);
+                transform: scale(1.1);
             }
             100% {
-                transform: translate(-50%, -50%) scale(1);
+                transform: scale(1);
                 opacity: 1;
             }
         }
 
+        /* AUDIO */
         audio {
             display: none;
         }
 
+        /* SCROLLBAR STYLING */
+        .journal-page::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .journal-page::-webkit-scrollbar-track {
+            background: #ede0cc;
+        }
+
+        .journal-page::-webkit-scrollbar-thumb {
+            background: #8b6f47;
+            border-radius: 3px;
+        }
+
+        .journal-page::-webkit-scrollbar-thumb:hover {
+            background: #5c4a35;
+        }
+
         @media (max-width: 768px) {
-            .password-container {
+            .journal-page {
                 padding: 30px 20px;
+                aspect-ratio: auto;
+                min-height: auto;
             }
 
-            .page-content {
-                padding: 20px;
+            .journal-page h2 {
+                font-size: 42px;
             }
 
-            .page h1 {
-                font-size: 26px;
+            .journal-page p {
+                font-size: 15px;
             }
 
-            .images-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .journal-page.handwritten p {
+                font-size: 18px;
             }
 
-            .image-item {
-                height: 150px;
+            .birthday-text {
+                font-size: 72px;
             }
         }
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop volume="0.3">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="password-container" id="passwordContainer">
-        <h1>🎂 Happy Birthday</h1>
-        <p>Enter password to continue</p>
-        <input type="password" id="passwordInput" class="password-input" placeholder="Enter password">
-        <button class="btn" onclick="checkPassword()">Unlock</button>
-        <div class="error" id="errorMsg">Incorrect password. Try again.</div>
+    <!-- PASSWORD SCREEN -->
+    <div class="password-screen" id="passwordScreen">
+        <div class="journal-cover">
+            <h1>What Remained</h1>
+            <p>A Journal by Muneeb</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Enter Password">
+            <div class="password-hint" id="hintDisplay"></div>
+            <button class="unlock-btn" onclick="checkPassword()">Open Journal</button>
+            <div class="error-msg" id="errorMsg"></div>
+        </div>
     </div>
 
-    <div class="main-content" id="mainContent">
-        <div class="tulips" id="tulips"></div>
-        <div class="birthday-text" id="birthdayText">Happy Birthday Hoor! 🎉</div>
+    <!-- TULIP RAIN & BIRTHDAY -->
+    <div class="tulip-container" id="tulipContainer"></div>
+    <div class="birthday-overlay" id="birthdayOverlay">
+        <div class="birthday-text">Happiest Birthday Hoor 🌷</div>
+    </div>
 
-        <!-- Page 1: Birthday Wish -->
-        <div class="page active" id="page1">
-            <div class="page-content">
-                <h1>Happy Birthday Hoor! 🎂</h1>
-                <p>
-                    Today is a day to celebrate you and all the wonderful moments we've shared. Life has a way of bringing people into our lives at just the right time, and you were one of those beautiful coincidences that changed everything. Your kindness, your laugh, and the way you see the world have left an indelible mark on my heart. As you celebrate another year of existence, I want you to know that no matter what, you deserve all the happiness in the world. Every dream you chase, every goal you set, and every step you take forward matters. May this year bring you closer to your dreams, surround you with genuine love, and fill your days with moments of pure joy. You're stronger than you know, braver than you believe, and more beautiful than you could ever imagine. Happy Birthday to someone who made my life infinitely better. May your day be as special as you are. 🎉💕
-                </p>
-
-                <div class="images-grid">
-                    <div class="image-item">📸 Photo 1</div>
-                    <div class="image-item">📸 Photo 2</div>
-                    <div class="image-item">📸 Photo 3</div>
-                    <div class="image-item">📸 Photo 4</div>
-                    <div class="image-item">📸 Photo 5</div>
-                    <div class="image-item">📸 Photo 6</div>
-                    <div class="image-item">📸 Photo 7</div>
-                </div>
-
-                <div class="page-nav">
-                    <button class="nav-btn active" onclick="goToPage(1)">Birthday Wish</button>
-                    <button class="nav-btn" onclick="goToPage(2)">Regrets & Taunts</button>
-                </div>
-            </div>
+    <!-- MAIN JOURNAL -->
+    <div class="journal-container" id="journalContainer">
+        <!-- PAGE 1: HANDWRITTEN NOTE -->
+        <div class="journal-page handwritten">
+            <h2>Dear Hoor,</h2>
+            <p>Happiest birthdayyyyyyyyyyy Babe.. Wishing  you have a good one . Firstly I cant even explain how embarrassed I am of myself that I wasn't able to gift you anything I promise that I tried but current situation is just keep on getting worst … I don't think this birthday wish gnna make you feel any better or not … lol I don't even know if it's a birthday wish or not … i think its me just letting out …</p>
+            
+            <p>Hoorrr I love you and I always will.. though it wasn't enough  but I rly did … I want you to live your life every single day to the fullest hoor .. it doesn't even makes sense but don't make the mistakes that I made … I remember I used to say to you ke family comes first nd all  family ijazat deti toh aapse shaadi krta and all … and I m the one that abandoned thm .. khair this day is about you .</p>
+            
+            <p>Babe you are the prettiest girl ever and I m not just saying this out of love I really mean it .. GOD made you specially … ik you feel insecure   u dun feel confident bout ur body    but babe take my word   you have the perfect body … your face lips eyes nose cheekssssss dil krta khaa jau aapko …. your piercings its just sooo perfect meri jan .. so feel confident bout ur body be Bold …..be confident …. Don't take no for an answer …. Not just physically attractive babe ..you are beautiful from the inside also your family miss syeda your mother  jiji they care for you they support you … you got amazing frnds   .. your way of talkinggg…. I just mesmerized how you used to talk on calll  haayeeeeeeee aaapkii light hyderabadi vibe your tonee it was just sooo qurban jau aap pr … khn se khn chla gya …</p>
         </div>
 
-        <!-- Page 2: Regrets & Taunts -->
-        <div class="page" id="page2">
-            <div class="page-content">
-                <h1>Regrets & Taunts 💭</h1>
-                <p>
-                    I think about the moments I didn't cherish enough when they were happening. The laughter we shared in the car, the late-night talks that felt like they could solve the world, the way you'd light up when talking about things you loved. I wish I had paid more attention, been more present, appreciated the simple magic of just being around you. There are things I said that I wish I could take back, and things I didn't say that I wish I had. I was afraid, unsure, caught between wanting something desperately and being terrified of losing it. That fear made me do stupid things, say hurtful things, and miss out on chances to show you how much you meant to me. If I could go back, I'd be braver. I'd be kinder. I'd tell you every single day that you were worth it. But I can't go back, so today, on your birthday, I'm telling you now: I'm sorry for the ways I fell short. I'm sorry for not fighting harder. I'm sorry for letting doubt win. And I'm grateful—so incredibly grateful—that you existed in my life, even if it was just for a chapter. You deserve someone who won't hesitate, who won't be afraid, who will love you the way you deserve to be loved. I hope you find that, and I hope life gives you everything you ever wanted and more. You were my greatest "what if," and that's something I'll carry with me forever. 💙
-                </p>
+        <!-- PAGE 2: CONTINUED -->
+        <div class="journal-page handwritten">
+            <p>I was saying ke you got everything you need … you need ALLah by ur side … Frnds, Family  sooo be confident  ye jo chup ke rehte avoid krte sbko low confident and all whatever u feel bout urself stop feeling that and OWN YOURSELF …. You are talented … u dun know I open ur page kbhi kbhi and watch ur orders… orders close kyu kiye shyd orders  zada hote ya ghr py busy rehte .. ya EID ki wja se orders close kr diye the …. I think bout whats going on in ur life …. I was seeing ur main insta from few days private th ..   thn suddenly it became publiccccc I was so happpyyyy …. I soooooo badly wanted to eat that puffffffffff it was so cuteee aapki fingers the story me and I was staring at your fingers like a hungry smooolll baby ….. jese puff nhi aapke fingers khane ho …</p>
 
-                <div class="images-grid">
-                    <div class="image-item">📸 Photo 1</div>
-                    <div class="image-item">📸 Photo 2</div>
-                    <div class="image-item">📸 Photo 3</div>
-                    <div class="image-item">📸 Photo 4</div>
-                    <div class="image-item">📸 Photo 5</div>
-                    <div class="image-item">📸 Photo 6</div>
-                    <div class="image-item">📸 Photo 7</div>
-                </div>
+            <p>I AM PROUD OF YOU HOOR ….. You ve been through a lot and you survived , My warrior babe …Just don't give up like I did ….. </p>
 
-                <div class="page-nav">
-                    <button class="nav-btn" onclick="goToPage(1)">Birthday Wish</button>
-                    <button class="nav-btn active" onclick="goToPage(2)">Regrets & Taunts</button>
-                </div>
-            </div>
+            <p>Sorry me zada bol rh but its my last birthday wish to you so I just have to say it all …. Babe I have caused you a lot of trouble all the time …. I apologize for that … I am sorry from the bottom of my heart …. Ho ske toh maaf krdijiye ga …. I never meant you harm … I just lost control of my consciousness and that is no excuse … I guess makafat e amal chal rh.. jo kuch b glt kiya jiske sath b   us sb ka hisaab duniya me hi pura ho rh …… Khairr ….</p>
+        </div>
+
+        <!-- PAGE 3: CONTINUED -->
+        <div class="journal-page handwritten">
+            <p>Is sbke bawajood  I m proud of the fact that I didn't reached out to you when I came to pak  I mean I had I nothing to lose no family no frnds …. I could ve forced you to stay but I didn't cuz I love you jaannnn …. It doesn't make any sense to you rn but I really controlled myself …. I ve been bad to you .. I dun deserve you … but I want you … still …</p>
+
+            <p>I didn't forced or begged you to stay .. cuz I knew I m harmfull … I hurt you even when I don't want to hurt you … I would have brought you down with myself … I would ve drained you …. Made you feel bad …. I m happy that you weren't there with me … I m happy that you left in time …. Not in time I mean you still got damaged in the way .. which I apologize for …. but if you look at me know you should be thankful to god that you are not with me sach me …</p>
+
+            <p>One more misunderstanding that you have … that you feel like u owe me something or I have donw favors to you… nooo hoorr noooo a big no ….. YOU DON'T OWE ME ANYTHING , Everything that I did was out of LOVE  … nothing else …. I wish I had more fight in me …. i m nothing but a drug addict who's on limited time ....</p>
+        </div>
+
+        <!-- PAGE 4: CONTINUED & REGRETS -->
+        <div class="journal-page handwritten">
+            <p>Ukw I was gnna make a separate page  for just regrets and taunts  ….. now im thinking bout taunts … I dun think I have any taunts to give to you … no taunts … But if we talk bout regret I do have one regret … Regret of not meeting you hoor … I wish ik bar mil leta aapse … I wish I could touch you for once … a warm long hug , a gentle kiss … a long walk while holding hands …. i wish we could be together … That the only regret hoor   I wish ik bar mil lete hum …</p>
+
+            <p>the love that I have for you hoor ,I cant give it to anyone else … I m working on a list hoor … I have lost everything I mean it everything .. but I wnna do something for the one who stood by me at this time …. So If u rcv something from zeenath just accpt it … idk when but I will try to … dun reject nd embarrass in front of her …</p>
+
+            <p>next some of my fav pics of us or our time … and I think I will probably write something after the last pic</p>
+        </div>
+
+        <!-- EMPTY PAGES FOR PHOTOS -->
+        <div class="empty-page"></div>
+        <div class="empty-page"></div>
+        <div class="empty-page"></div>
+        <div class="empty-page"></div>
+        <div class="empty-page"></div>
+        <div class="empty-page"></div>
+        <div class="empty-page"></div>
+
+        <!-- FINAL PAGE: LAST NOTE -->
+        <div class="journal-page handwritten">
+            <h2>Aakhir mein...</h2>
+            <p>Main tumse kuch nahi chahta.</p>
+            <p>Na jawab.</p>
+            <p>Na wapas aana.</p>
+            <p>Na maafi.</p>
+            <p>Bas itna chahta hoon ke jab kabhi meri yaad aaye, toh mujhe meri ghaltiyon se pehle meri mohabbat ke liye yaad karna.</p>
+            <p style="margin-top: 30px; text-align: center; font-size: 24px;">Happy Birthday, Hoor. 🌷</p>
+            <p style="margin-top: 20px; text-align: center;">Allah tumhein woh sab de jo main kabhi na de saka.</p>
+            <p style="margin-top: 30px; text-align: center; font-weight: 700;">— Muneeb</p>
+        </div>
+
+        <!-- CLOSING PAGE -->
+        <div class="journal-page" style="display: flex; align-items: center; justify-content: center;">
+            <h2 style="font-size: 48px;">~ End ~</h2>
         </div>
     </div>
 
     <script>
-        const correctPassword = "muneeb";
+        const correctPassword = "AROOSA";
         const passwordInput = document.getElementById("passwordInput");
-        const passwordContainer = document.getElementById("passwordContainer");
-        const mainContent = document.getElementById("mainContent");
+        const passwordScreen = document.getElementById("passwordScreen");
+        const journalContainer = document.getElementById("journalContainer");
         const errorMsg = document.getElementById("errorMsg");
+        const hintDisplay = document.getElementById("hintDisplay");
         const bgMusic = document.getElementById("bgMusic");
         let musicStarted = false;
 
         function checkPassword() {
-            const entered = passwordInput.value;
+            const entered = passwordInput.value.toUpperCase();
+            
             if (entered === correctPassword) {
                 errorMsg.classList.remove("show");
-                passwordContainer.style.display = "none";
-                mainContent.classList.add("show");
+                hintDisplay.textContent = "";
+                passwordScreen.classList.add("hidden");
+                journalContainer.classList.add("show");
                 
                 if (!musicStarted) {
                     bgMusic.volume = 0.3;
@@ -376,39 +555,35 @@
                 triggerAnimation();
             } else {
                 errorMsg.classList.add("show");
+                errorMsg.textContent = "❌ Incorrect password";
+                hintDisplay.textContent = "Hint: Muneeb's younger sister name";
                 passwordInput.value = "";
                 passwordInput.focus();
             }
         }
 
         function triggerAnimation() {
-            const tulipsContainer = document.getElementById("tulips");
-            const birthdayText = document.getElementById("birthdayText");
+            const tulipContainer = document.getElementById("tulipContainer");
+            const birthdayOverlay = document.getElementById("birthdayOverlay");
             
-            tulipsContainer.classList.add("active");
-            birthdayText.classList.add("show");
+            tulipContainer.classList.add("active");
+            birthdayOverlay.classList.add("show");
 
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const tulip = document.createElement("div");
                     tulip.className = "tulip";
+                    tulip.textContent = "🌷";
                     tulip.style.left = Math.random() * 100 + "%";
                     tulip.style.animationDelay = Math.random() * 0.5 + "s";
-                    tulipsContainer.appendChild(tulip);
-                }, i * 100);
+                    tulipContainer.appendChild(tulip);
+                }, i * 80);
             }
 
             setTimeout(() => {
-                tulipsContainer.classList.remove("active");
-                birthdayText.classList.remove("show");
+                tulipContainer.classList.remove("active");
+                birthdayOverlay.classList.remove("show");
             }, 5000);
-        }
-
-        function goToPage(pageNum) {
-            document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-            document.getElementById("page" + pageNum).classList.add("active");
-            document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
-            event.target.classList.add("active");
         }
 
         passwordInput.addEventListener("keypress", function(event) {
@@ -417,7 +592,6 @@
             }
         });
 
-        // Resume music on user interaction
         document.addEventListener("click", () => {
             if (musicStarted && bgMusic.paused) {
                 bgMusic.play().catch(e => console.log("Music play prevented"));
